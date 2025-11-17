@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Image Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="settings-page">
+    <div class="settings-container">
+        <!-- Header -->
+        <div class="settings-header">
+            <button class="back-btn" onclick="window.location.href='/'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Search
+            </button>
+            <h1>Settings</h1>
+        </div>
+
+        <!-- Settings Form -->
+        <div class="settings-content">
+            <div class="settings-section">
+                <h2>API Configuration</h2>
+                <p class="section-description">Configure your API keys and service endpoints</p>
+
+                <form id="settingsForm" onsubmit="saveSettings(event)">
+                    <!-- Pinecone Settings -->
+                    <div class="form-group">
+                        <label for="pineconeKey">Pinecone API Key</label>
+                        <input
+                            type="password"
+                            id="pineconeKey"
+                            name="PINECONE_API_KEY"
+                            placeholder="Enter your Pinecone API key"
+                            class="form-input"
+                        >
+                        <small class="form-hint">Required for vector database operations</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="indexName">Pinecone Index Name</label>
+                        <input
+                            type="text"
+                            id="indexName"
+                            name="INDEX_NAME"
+                            placeholder="img-search-clip-rp-384"
+                            class="form-input"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pineconeCloud">Cloud Provider</label>
+                            <select id="pineconeCloud" name="PINECONE_CLOUD" class="form-input">
+                                <option value="aws">AWS</option>
+                                <option value="gcp">GCP</option>
+                                <option value="azure">Azure</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pineconeRegion">Region</label>
+                            <input
+                                type="text"
+                                id="pineconeRegion"
+                                name="PINECONE_REGION"
+                                placeholder="us-east-1"
+                                class="form-input"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Gemini Settings -->
+                    <div class="form-group">
+                        <label for="geminiKey">Gemini API Key</label>
+                        <input
+                            type="password"
+                            id="geminiKey"
+                            name="GEMINI_API_KEY"
+                            placeholder="Enter your Gemini API key"
+                            class="form-input"
+                        >
+                        <small class="form-hint">Required for query enhancement and image captioning</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="geminiModel">Gemini Model</label>
+                        <input
+                            type="text"
+                            id="geminiModel"
+                            name="GEMINI_MODEL"
+                            placeholder="gemini-2.0-flash"
+                            class="form-input"
+                        >
+                    </div>
+
+                    <!-- CLIP Settings -->
+                    <div class="form-group">
+                        <label for="clipModel">CLIP Model</label>
+                        <input
+                            type="text"
+                            id="clipModel"
+                            name="CLIP_MODEL"
+                            placeholder="sentence-transformers/clip-ViT-B-32"
+                            class="form-input"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reduceDim">Dimension Reduction</label>
+                        <input
+                            type="number"
+                            id="reduceDim"
+                            name="REDUCE_DIM"
+                            placeholder="384"
+                            class="form-input"
+                        >
+                        <small class="form-hint">Vector dimensions after random projection (default: 384)</small>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="testConnection()">
+                            Test Connection
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            Save Settings
+                        </button>
+                    </div>
+
+                    <!-- Status Message -->
+                    <div id="statusMessage" class="status-message" style="display: none;"></div>
+                </form>
+            </div>
+
+            <!-- Info Section -->
+            <div class="settings-section">
+                <h2>Current Configuration</h2>
+                <div class="config-info" id="configInfo">
+                    <p>Loading configuration...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

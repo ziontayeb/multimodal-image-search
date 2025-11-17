@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# Cache directories
+cache/
+data/captions/*.json
+data/queries/enhanced_queries.json
+*.npy
+
+# Notebooks
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# Images (adjust as needed)
+example_images/
+*.jpg
+*.jpeg
+*.png
+*.gif
+
+# Evaluation
+evaluation/
+evaluation_plots/
+*.csv
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Zip archives
+*.zip

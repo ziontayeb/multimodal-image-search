@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python scripts/manage_db.py:*)",
+      "Bash(chmod:*)",
+      "Bash(python scripts/evaluate.py:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(/Users/ziontayeb/Desktop/Image\\ search\\ project\\ -\\ Clean/.venv/bin/pip install:*)",
+      "Bash(/Users/ziontayeb/Desktop/Image search project - Clean/.venv/bin/python:*)",
+      "Bash(tree:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

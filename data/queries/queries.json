@@ -1,0 +1,32 @@
+{
+  "eq": {
+    "k_vals": [15, 8, 1],
+    "queries": {
+      "eq1": "Sunset on the beach",
+      "eq2": "Red car",
+      "eq3": "Photo of flowers",
+      "eq4": "A dog",
+      "eq5": "Desert views"
+    }
+  },
+  "mq": {
+    "k_vals": [10, 5, 1],
+    "queries": {
+      "mq1": "A man sitting on a boat",
+      "mq2": "A white Shih Tzu",
+      "mq3": "Study to exams",
+      "mq4": "Photos from wedding",
+      "mq5": "A romantic date in Paris"
+    }
+  },
+  "hq": {
+    "k_vals": [5, 3, 1],
+    "queries": {
+      "hq1": "Photos from Burning Man",
+      "hq2": "Napoleon painting",
+      "hq3": "Childhood memories",
+      "hq4": "Feeling lonely",
+      "hq5": "A white Shih Tzu sleeping"
+    }
+  }
+}
