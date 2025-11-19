@@ -91,12 +91,37 @@ body {
     overflow-y: auto;
 }
 
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .sidebar-section h3 {
     font-size: 0.875rem;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 1rem;
     letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.clear-history-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+.clear-history-btn:hover {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .search-history {

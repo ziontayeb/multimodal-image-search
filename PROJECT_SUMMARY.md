@@ -31,7 +31,7 @@ Image search project/
 
 **After:**
 ```
-Image search project - Clean/
+Image search project/
 ├── README.md                    # Comprehensive documentation
 ├── QUICKSTART.md               # 5-minute setup guide
 ├── LICENSE                     # MIT License

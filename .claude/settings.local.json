@@ -8,8 +8,8 @@
       "Bash(python3:*)",
       "Bash(source .venv/bin/activate)",
       "Bash(pip install:*)",
-      "Bash(/Users/ziontayeb/Desktop/Image\\ search\\ project\\ -\\ Clean/.venv/bin/pip install:*)",
-      "Bash(/Users/ziontayeb/Desktop/Image search project - Clean/.venv/bin/python:*)",
+      "Bash(/Users/ziontayeb/Desktop/Image\\ search\\ project/.venv/bin/pip install:*)",
+      "Bash(/Users/ziontayeb/Desktop/Image search project/.venv/bin/python:*)",
       "Bash(tree:*)"
     ],
     "deny": [],

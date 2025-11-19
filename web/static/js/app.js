@@ -76,6 +76,19 @@ function addToHistory(query, k, results) {
     renderSearchHistory();
 }
 
+// Clear search history
+function clearSearchHistory() {
+    if (searchHistory.length === 0) {
+        return;
+    }
+
+    if (confirm('Are you sure you want to clear all search history? This cannot be undone.')) {
+        searchHistory = [];
+        saveSearchHistory();
+        renderSearchHistory();
+    }
+}
+
 // Load stats
 async function loadStats() {
     try {

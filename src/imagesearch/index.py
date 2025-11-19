@@ -3,11 +3,12 @@
 from __future__ import annotations
 import glob
 import os
+from pathlib import Path
 from typing import List, Dict, Any
 
 from pinecone import Pinecone, ServerlessSpec
 
-from .config import INDEX_NAME, PINECONE_CLOUD, PINECONE_REGION, REDUCE_DIM
+from .config import INDEX_NAME, PINECONE_CLOUD, PINECONE_REGION, REDUCE_DIM, PROJECT_ROOT
 from .embeddings import encode_image, encode_images, encode_text_to_index, file_id
 
 
@@ -38,6 +39,40 @@ if INDEX_NAME not in {ix.name for ix in pc.list_indexes()}:
 index = pc.Index(INDEX_NAME)
 
 
+def _to_relative_path(path: str) -> str:
+    """
+    Convert an absolute path to a path relative to PROJECT_ROOT.
+
+    Args:
+        path: Absolute or relative path to a file
+
+    Returns:
+        Path relative to PROJECT_ROOT
+    """
+    try:
+        abs_path = Path(path).resolve()
+        return str(abs_path.relative_to(PROJECT_ROOT))
+    except (ValueError, OSError):
+        # If path is not under PROJECT_ROOT, store as-is
+        return path
+
+
+def _to_absolute_path(path: str) -> str:
+    """
+    Convert a relative path (stored in Pinecone) to an absolute path.
+
+    Args:
+        path: Relative or absolute path
+
+    Returns:
+        Absolute path
+    """
+    p = Path(path)
+    if p.is_absolute():
+        return str(p)
+    return str(PROJECT_ROOT / path)
+
+
 def upsert_one(path: str) -> str:
     """
     Insert or update a single image in the index.
@@ -50,10 +85,11 @@ def upsert_one(path: str) -> str:
     """
     vec = encode_image(path)
     vid = file_id(path)
+    rel_path = _to_relative_path(path)
     index.upsert([{
         "id": vid,
         "values": vec.tolist(),
-        "metadata": {"path": path}
+        "metadata": {"path": rel_path}
     }])
     return vid
 
@@ -87,7 +123,7 @@ def upsert_dir(folder: str, batch_size: int = 16) -> int:
         upserts = [{
             "id": file_id(p),
             "values": e.tolist(),
-            "metadata": {"path": p}
+            "metadata": {"path": _to_relative_path(p)}
         } for p, e in zip(group, embs)]
 
         index.upsert(upserts)
@@ -116,7 +152,7 @@ def search(query: str, top_k: int) -> List[Dict[str, Any]]:
         top_k: Number of results to return
 
     Returns:
-        List of matches with id, score, and metadata
+        List of matches with id, score, and metadata (paths are converted to absolute)
     """
     q = encode_text_to_index(query)
     res = index.query(
@@ -124,7 +160,14 @@ def search(query: str, top_k: int) -> List[Dict[str, Any]]:
         top_k=top_k,
         include_metadata=True
     )
-    return res.get("matches", [])
+    matches = res.get("matches", [])
+
+    # Convert relative paths back to absolute paths
+    for match in matches:
+        if "metadata" in match and "path" in match["metadata"]:
+            match["metadata"]["path"] = _to_absolute_path(match["metadata"]["path"])
+
+    return matches
 
 
 def stats() -> Dict[str, Any]:
